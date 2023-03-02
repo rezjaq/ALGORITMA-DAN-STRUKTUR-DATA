@@ -1,0 +1,6 @@
+3.2.3 pertanyaan
+Berdasarkan uji coba 3.2, apakah class yang akan dibuat array of object harus selalu memiliki
+atribut dan sekaligus method?Jelaskan!
+jawaban line 2 : Tidak harus selalu memiliki atribut dan sekaligus method. Namun, jika objek yang ingin dibuat akan menyimpan data dan melakukan manipulasi pada data tersebut, maka sangat disarankan untuk memiliki atribut dan method yang sesuai.
+Pemanggilan konstruktor pada baris program ppArray[1] = new PersegiPanjang(); digunakan untuk menginisialisasi objek PersegiPanjang baru dan menetapkan objek tersebut ke indeks ke-1 dari array ppArray.
+digunakan untuk membuat sebuah array ppArray yang berisi tiga objek PersegiPanjang.
