@@ -164,5 +164,131 @@ void insertionSortDescending(){
 ```
 
 ## TUGAS
+``` java
+public class hotel {
+    String nama,kota;
+    int harga;
+    int bintang;
 
+    hotel(String nama, String kota, int harga, int bintang){
+        this.nama = nama;
+        this.kota = kota;
+        this.harga = harga;
+        this.bintang = bintang;
+    }
+
+    public void tampilHotel(){
+        System.out.println("Nama Hotel : "+nama);
+        System.out.println("Lokasi : "+kota);
+        System.out.println("Harga permalam : "+harga);
+        System.out.println("Bintang "+bintang);
+    }
+}
+public class HotelService {
+    hotel room [] = new hotel[5];
+    int idx;
+
+    void tambah(hotel h){
+        if(idx<room.length){
+            room[idx] = h;
+            idx++;
+        }
+        else{
+            System.out.println("Peringatan data hotel sudah penuh");
+        }
+    }
+
+    void tampil(){
+        for(hotel h : room){
+            h.tampilHotel();;
+            System.out.println("---------------------------");
+        }
+    }
+
+    void bubleShort(){
+        for(int i=0; i<room.length; i++){
+            for(int j=1; j<room.length; j++){
+                hotel tmp = room[j];
+                room[j] = room[j-1];
+                room[j-1] = tmp;
+            }
+        }
+    }
+
+    void bubbleSortAscending(){
+    for(int i=0; i<room.length; i++){
+        for(int j=1; j<room.length; j++){
+            if(room[j].harga < room[j-1].harga){ 
+                hotel tmp = room[j];
+                room[j] = room[j-1];
+                room[j-1] = tmp;
+            }
+        }
+    }
+}
+
+    void selectionShort(){
+        for(int i=0; i<room.length-1; i++){
+            int idxMin = i;
+            for(int j=i=1; j<room.length; j++){
+                if(room[j].harga < room[idxMin].harga){
+                    idxMin = j;
+                }
+            }
+            hotel tmp = room[idxMin];
+            room[idxMin] = room[i];
+            room[i] = tmp;
+        }
+    }
+
+    void selectionSortDiscending(){
+    for(int i=0; i<room.length-1; i++){
+        int idxMax = i;
+        for(int j=i+1; j<room.length; j++){ // modifikasi pada bagian ini
+            if(room[j].harga > room[idxMax].harga){
+                idxMax = j;
+            }
+        }
+        hotel tmp = room[idxMax];
+        room[idxMax] = room[i];
+        room[i] = tmp;
+    }
+}
+}
+public class mainHotel {
+    public static void main(String[] args) {
+        HotelService list = new HotelService();
+        hotel h1 = new hotel("oyo kebangsaan", "malang", 200000, 5);
+        hotel h2 = new hotel("oyo harapan", "malang", 250000, 5);
+        hotel h3 = new hotel("oyo china", "malang", 235000, 4);
+        hotel h4 = new hotel("oyo italia", "malang", 240000, 2);
+        hotel h5 = new hotel("oyo german", "malang", 150000, 1);
+
+        list.tambah(h1);
+        list.tambah(h2);
+        list.tambah(h3);
+        list.tambah(h4);
+        list.tambah(h5);
+
+        System.out.println("data hotel sebelum sorting = ");
+        list.tampil();
+
+        System.out.println("data hotel setelah sorting desc bedasarkan ipk");
+        list.bubleShort();
+        list.tampil();
+
+        System.out.println("data hotel setelah sorting asc bedasarkan ipk");
+        list.bubbleSortAscending();
+        list.tampil();
+
+        System.out.println("data hotel setelah soritng asc berdasarkan ipk");
+        list.selectionShort();
+        list.tampil();
+
+        System.out.println("data hotel setelah soritng desc berdasarkan ipk");
+        list.selectionSortDiscending();
+        list.tampil();
+    }
+}
+```
 
