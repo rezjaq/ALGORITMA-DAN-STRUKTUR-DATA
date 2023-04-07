@@ -292,4 +292,7 @@ public class mainHotel {
     }
 }
 ```
+<img src="img/tugas one.jpg">
+<img src="img/tugas (1.1).jpg">
+<img src="img/tugas(1.2).jpg">
 
