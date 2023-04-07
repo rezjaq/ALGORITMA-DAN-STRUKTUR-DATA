@@ -208,9 +208,11 @@ public class HotelService {
     void bubleShort(){
         for(int i=0; i<room.length; i++){
             for(int j=1; j<room.length; j++){
-                hotel tmp = room[j];
-                room[j] = room[j-1];
-                room[j-1] = tmp;
+                if(room[j].harga > room[j-1].harga){
+                    hotel tmp = room[j];
+                    room[j] = room[j-1];
+                    room[j-1] = tmp;
+                }
             }
         }
     }
@@ -230,8 +232,8 @@ public class HotelService {
     void selectionShort(){
         for(int i=0; i<room.length-1; i++){
             int idxMin = i;
-            for(int j=i=1; j<room.length; j++){
-                if(room[j].harga < room[idxMin].harga){
+            for(int j=i+1; j<room.length; j++){
+                if(room[j].bintang < room[idxMin].bintang){
                     idxMin = j;
                 }
             }
@@ -241,20 +243,19 @@ public class HotelService {
         }
     }
 
-    void selectionSortDiscending(){
-    for(int i=0; i<room.length-1; i++){
-        int idxMax = i;
-        for(int j=i+1; j<room.length; j++){ // modifikasi pada bagian ini
-            if(room[j].harga > room[idxMax].harga){
-                idxMax = j;
+    void selectionSortDescending(){
+        for(int i=0; i<room.length; i++){
+            hotel temp = room[i];
+            int j=i-1;
+            while(j >= 0 && room[j].bintang < temp.bintang){
+                room[j+1] = room[j];
+                j--;
             }
+            room[j+1]=temp;
         }
-        hotel tmp = room[idxMax];
-        room[idxMax] = room[i];
-        room[i] = tmp;
     }
 }
-}
+
 public class mainHotel {
     public static void main(String[] args) {
         HotelService list = new HotelService();
@@ -273,20 +274,20 @@ public class mainHotel {
         System.out.println("data hotel sebelum sorting = ");
         list.tampil();
 
-        System.out.println("data hotel setelah sorting desc bedasarkan ipk");
+        System.out.println("data hotel setelah sorting desc bedasarkan harga");
         list.bubleShort();
         list.tampil();
 
-        System.out.println("data hotel setelah sorting asc bedasarkan ipk");
+        System.out.println("data hotel setelah sorting asc bedasarkan harga");
         list.bubbleSortAscending();
         list.tampil();
 
-        System.out.println("data hotel setelah soritng asc berdasarkan ipk");
+        System.out.println("data hotel setelah soritng asc berdasarkan bintang");
         list.selectionShort();
         list.tampil();
 
-        System.out.println("data hotel setelah soritng desc berdasarkan ipk");
-        list.selectionSortDiscending();
+        System.out.println("data hotel setelah soritng desc berdasarkan bintang");
+        list.selectionSortDescending();
         list.tampil();
     }
 }

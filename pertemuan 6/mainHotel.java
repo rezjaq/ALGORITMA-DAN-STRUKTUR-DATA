@@ -16,20 +16,20 @@ public class mainHotel {
         System.out.println("data hotel sebelum sorting = ");
         list.tampil();
 
-        System.out.println("data hotel setelah sorting desc bedasarkan ipk");
+        System.out.println("data hotel setelah sorting desc bedasarkan harga");
         list.bubleShort();
         list.tampil();
 
-        System.out.println("data hotel setelah sorting asc bedasarkan ipk");
+        System.out.println("data hotel setelah sorting asc bedasarkan harga");
         list.bubbleSortAscending();
         list.tampil();
 
-        System.out.println("data hotel setelah soritng asc berdasarkan ipk");
+        System.out.println("data hotel setelah soritng asc berdasarkan bintang");
         list.selectionShort();
         list.tampil();
 
-        System.out.println("data hotel setelah soritng desc berdasarkan ipk");
-        list.selectionSortDiscending();
+        System.out.println("data hotel setelah soritng desc berdasarkan bintang");
+        list.selectionSortDescending();
         list.tampil();
     }
 }
