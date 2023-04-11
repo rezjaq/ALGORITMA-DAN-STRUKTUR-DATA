@@ -1,0 +1,11 @@
+1. pada method tampildata itu cuman menampilkan sebuah proses yang dimana output dari program hanyalah sebuah inputan dari user seperti nama,nim,umur,ipk. Namun kalo method tampilPosisi itu adalah sebuah proses yang akan menghasilkan output untuk menunjukkan jika key kita mencari nim 2 terletak pada indeks ke berapa.
+
+2. fungsi break pada program berguna untuk jika kita mencari sebuah key yang ditemukan dan setelah menemukannya pada indeks tertentu maka proses akan dihentikan supaya tidak terjadi pengecekan secara berulang-ulang.
+
+3. masih bisa karena ini menggunakan metode algoritma sequential serach bukan binary serach
+
+
+1. pada method FindBinarySearch yang membagi data menjadi dua bagian pada setiap iterasi, dan mencari data di salah satu bagian tergantung dari nilai data yang dicari dan nilai data pada tengah-tengah bagian.
+2.pada method FindBinarySearch jika nilai cari sama dengan nilai listmsh[mid].nim maka nilai mid akan dikembalikan namun jika tidak maka proses conquer dilakukan dengan memanggil kembali method findbinarysearch dengan parameter yang berbeda yaitu left dan mid-1 jika listMhs[mid].nim lebih besar dari cari, atau mid+1 dan right jika listMhs[mid].nim lebih kecil dari cari. Proses ini akan berulang hingga nilai cari ditemukan atau seluruh data telah dijelajahi.
+3. tidak bisa karena binary search akan mencari nilai dengan key yang diberikan oleh user dan akan diurutkan terlebih dahulu lalu akan dilakukan proses pencarian
+4.
