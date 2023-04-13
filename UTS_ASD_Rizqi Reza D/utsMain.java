@@ -35,7 +35,7 @@ public class utsMain {
         System.out.println();
 
         System.out.println("DATA SETELAH DIURUTKAN");
-        asd.insertionSort(hasil);
+        asd.selectionSort(hasil);
         for (int i = 0; i < hasil.length; i++) { 
             System.out.print(hasil[i] + " ");
         }
