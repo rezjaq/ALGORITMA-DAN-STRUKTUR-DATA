@@ -1,4 +1,4 @@
-import java.util.*;;
+import java.util.*;
 public class utsMain {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -13,7 +13,7 @@ public class utsMain {
         System.out.println("Konversi Nama dalam bentuk angka adalah : ");
         for (int i = 0; i < nama.length(); i++) {
             char hurufSekarang = nama.charAt(i);
-            int angkaSekarang = Arrays.binarySearch(huruf, hurufSekarang) + 1;
+            int angkaSekarang = Arrays.binarySearch(huruf, hurufSekarang) +  1;
             System.out.print(angkaSekarang + " ");
             hasilNama[i] = angkaSekarang;
         }
