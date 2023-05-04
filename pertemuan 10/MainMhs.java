@@ -32,7 +32,7 @@ public class MainMhs {
                     int absen = sc.nextInt();
                     System.out.print("IPK : ");
                     Double ipk = sc.nextDouble();
-                    mahasiswa m = new mahasiswa(nama, nim, absen, absen);
+                    mahasiswa m = new mahasiswa(nama, nim, absen, ipk);
                     sc.nextLine();
                     ngantri.enqueue(m);
                     break;
@@ -49,10 +49,11 @@ public class MainMhs {
                     break;
                 case 5:
                     ngantri.peekRear();
+                    break;
                 case 6:
-                    System.out.print("Masukkan nim Mahasiswa\t\t:");
-                    String nimm = sc.nextLine();
-                    ngantri.peekPosition(nimm);
+                    System.out.print("Masukkan nim Mahasiswa :");
+                    String ni = input.nextLine();
+                    ngantri.peekPosition(ni);
                     break;
                 case 7:
                     System.out.print("Masukkan indeks Antrian yang akan dicek\t:");

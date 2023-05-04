@@ -7,9 +7,9 @@ public class queuePenumpang {
         create();
     }
     public void create(){
-    q = new penumpang[max];
-    size = 0;
-    front = rear = -1;
+        q = new penumpang[max];
+        size = 0;
+        front = rear = -1;
     }
     public boolean IsEmpety(){
         if (size == 0) {
@@ -30,6 +30,14 @@ public class queuePenumpang {
     public void peek(){
         if (!IsEmpety()) {
             System.out.println("Elemen terdepan : "+q[front].nama+" "+q[front].kotaAsal+" "+q[front].kotaTujuan+" "+q[front].jumlahTiket+" "+q[front].harga);
+        }
+        else{
+            System.out.println("queue masih kosong");
+        }
+    }
+    public void peekRear(){
+        if (!IsEmpety()) {
+            System.out.println("Elemen terdepan : "+q[rear].nama+" "+q[rear].kotaAsal+" "+q[rear].kotaTujuan+" "+q[rear].jumlahTiket+" "+q[rear].harga);
         }
         else{
             System.out.println("queue masih kosong");

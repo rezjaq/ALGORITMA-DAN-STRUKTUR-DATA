@@ -14,191 +14,113 @@ RIZQI REZA DANUARTA
 
 TI-1C
 
-### Latihan Praktikum 6.2.1
+### Latihan Praktikum 8.2.1
 ``` java 
-class mahasiswa{
-
-    int nim, umur;
-    String nama;
-    double ipk;
-
-    mahasiswa(int ni, int um, String na, double ip){
-        this.nama = na;
-        this.nim = ni;
-        this.umur = um;
-        this.ipk = ip;
+class queue{
+    int max, size, front, rear;
+    int [] q ;
+    public queue(int n){
+        max = n;
+        create();
     }
-
-    void tampil(){
-        System.out.println("NIM : "+nim);
-        System.out.println("NAMA : "+nama);
-        System.out.println("UMUR : "+umur);
-        System.out.println("IPK : "+ipk);
+    public void create(){
+    q = new int[max];
+    size = 0;
+    front = rear = -1;
     }
-}
-public class pencarianmhs {
-    mahasiswa listMhs [] = new mahasiswa[5];
-    int idx;
-
-    void tambah(mahasiswa m){
-        if(idx < listMhs.length){
-            listMhs[idx] = m;
-            idx++;
+    public boolean IsEmpety(){
+        if (size == 0) {
+            return true;
         }
         else{
-            System.out.println("Data sudah penuh !!");
+            return false;
         }
     }
-
-    void tampil(){
-        for(mahasiswa m : listMhs){
-            m.tampil();
-            System.out.println("-----------------------------------");
+    public boolean IsFull(){
+        if (size == max) {
+            return true;
+        }
+        else{
+            return false;
         }
     }
-    void merge(int left, int mid, int right) {
-        mahasiswa[] temp = new mahasiswa[listMhs.length];
-        for (int i = left; i <= right; i++) {
-            temp[i] = listMhs[i];
+    public void peek(){
+        if (!IsEmpety()) {
+            System.out.println("Elemen terdepan : "+q[front]);
         }
-
-        int a = left;
-        int b = mid + 1;
-        int c = left;
-
-        while (a <= mid && b <= right) {
-            if (temp[a].nim <= temp[b].nim) {
-                listMhs[c] = temp[b];
-                a++;
-            } else {
-                listMhs[c] = temp[b];
-                b++;
+        else{
+            System.out.println("queue masih kosong");
+        }
+    }
+    public void print(){
+        if (IsEmpety()) {
+            System.out.println("queue masih kosong");
+        }
+        else{
+            int i = front;
+            while(i != rear){
+                System.out.println(q[i] + "");
+                i = (i+1)%max;
             }
-            c++;
+            System.out.println(q[i]+"");
+            System.out.println("Jumlah elemen = "+size);
         }
-        while (a <= mid) {
-            listMhs[c] = temp[a];
-            a++;
-            c++;
+    }
+    public void clear(){
+        if (!IsEmpety()) {
+            front = rear = -1;
+            size = 0;
+            System.out.println("queue berhasil dikosongkan");
         }
-
-        while (b <= right) {
-            listMhs[c] = temp[b];
-            b++;
-            c++;
+        else{
+            System.out.println("queue masih kosong");
         }
-    }    
-    public int findBinarySearch(int cari, int left, int right){
-        int mid;
-        if(right>=left){
-            mid = (left+right)/2;
-            if(cari == listMhs[mid].nim){
-                return (mid);
-            }
-            else if(listMhs[mid].nim > cari){
-                return findBinarySearch(cari, left, mid-1);
+    }
+    public void enqueue (int data){
+        if (IsFull()) {
+            System.out.println("queu sudah penuh");
+        }
+        else{
+            if (IsEmpety()) {
+                front = rear = 0;
             }
             else{
-                return findBinarySearch(cari, mid+1, right);
-            }
-        }
-        return -1;
-    }
-    public int findSeqSearch(int cari){
-        int posisi = -1;
-        for(int j=0; j<listMhs.length; j++){
-            if(listMhs[j].nim == cari){
-                posisi = j;
-                break;
-            }
-        }
-        return posisi;
-    }
-    public int findSeqSearchString(String cari){
-        int posisi = -1;
-        int counter = 0;
-        for(int j=0; j<listMhs.length; j++){
-            if(listMhs[j].nama.equalsIgnoreCase(cari)){
-                if(posisi == -1) {
-                    posisi = j;
+                if (rear == max -1) {
+                    rear = 0;
                 }
-                counter++;
+                else{
+                    rear++;
+                }
+            }
+            q[rear]=data;
+            size++;
+        }
+    }
+    public int denqueue(){
+        int data = 0;
+        if (IsEmpety()) {
+            System.out.println("queue masih kosong");
+        }
+        else{
+            data = q[front];
+            size--;
+            if (IsEmpety()) {
+                front = rear = -1;
+            }
+            else{
+                if (front == max - 1) {
+                    front = 0;
+                }
+                else{
+                    front++;
+                }
             }
         }
-        if(counter > 1) {
-            System.out.println("Ditemukan " + counter + " mahasiswa dengan nama " + cari);
-        }
-        return posisi;
-    }
-    public void tampilPosisi(int x, int pos){
-        if (pos != -1) {
-            System.out.println("data: "+x+" ditemukan pada indeks ke-"+pos);
-        }
-        else{
-            System.out.println("data "+x+"tidak ditemukan");
-        }
+        return data;
     }
 
-    public void tampilData(int x, int pos){
-        if (pos != -1) {
-            System.out.println("Nim\t : "+x);
-            System.out.println("Nama\t : "+listMhs[pos].nama);
-            System.out.println("Umur\t : "+listMhs[pos].umur);
-            System.out.println("IPK\t : "+listMhs[pos].ipk);
-        }
-        else{
-            System.out.println("data "+x+" tidak ditemukan");
-        }
-    }
 }
-import java.util.*;
-public class mahasiswaMain {
-    public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
-        Scanner s1 = new Scanner(System.in);
-        
-        pencarianmhs data = new pencarianmhs();
-        int jumMhs = 5;
 
-        System.out.println("------------------------------");
-        System.out.println("Masukkan data mahasiswa secara terurut dari nim terkecil");
-
-        for(int i=0; i<jumMhs; i++){
-            System.out.println("---------------");
-            System.out.print("Nim\t : ");
-            int nim = s.nextInt();
-            System.out.print("Nama\t : ");
-            String nama = s1.next();
-            System.out.print("Umur\t : ");
-            int umur = s.nextInt();
-            System.out.print("Ipk\t : ");
-            double ipk = s.nextDouble();
-
-            mahasiswa m = new mahasiswa(nim, umur, nama, ipk);
-            data.tambah(m);
-
-            System.out.println("------------------------------");
-            System.out.println("Data Keseluruhan Mahasiswa");
-            data.tampil();
-
-            System.out.println("------------------------------");
-            System.out.println("------------------------------");
-            System.out.println("Pencarian data : ");
-            System.out.println("Masukkan NIM Mahasiswa yang dicari : ");
-            System.out.print("NIM : ");
-            int cari = s.nextInt();
-            System.out.println("Sequential Search");
-            int posisi = data.findSeqSearch(cari);
-            data.tampilPosisi(cari, posisi);
-            data.tampilData(cari, posisi);
-            System.out.println("------------------------------");
-            System.out.println("Binary Search");
-            posisi = data.findBinarySearch(cari, 0, jumMhs-1);
-            data.tampilPosisi(cari, posisi);
-            data.tampilData(cari, posisi);
-        }
-    }
-}
 ```
 #### pertanyaan 6.2.3
 1.  pada method tampildata itu cuman menampilkan sebuah proses yang dimana output dari program hanyalah sebuah inputan dari user seperti nama,nim,umur,ipk. Namun kalo method tampilPosisi itu adalah sebuah proses yang akan menghasilkan output untuk menunjukkan jika key kita mencari nim 2 terletak pada indeks ke berapa.

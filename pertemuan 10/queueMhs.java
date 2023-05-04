@@ -8,11 +8,6 @@ public class queueMhs {
         size = 0;
         front = rear = -1;       
     }
-    public void create(){
-        antrian = new mahasiswa[max];
-        size = 0;
-        front = rear = -1;
-    }
         public boolean IsEmpety(){
             if (size == 0) {
                 return true;
@@ -52,9 +47,8 @@ public class queueMhs {
             else{
                 int i = front;
                 while(i != rear){
-                System.out.println(antrian[i].nama+" "+antrian[i].nim+" "+antrian[i].absen+" "+antrian[i].ipk);
-                i = (i+1)%max;
-                System.out.println("");
+                    System.out.println(antrian[i].nama+" "+antrian[i].nim+" "+antrian[i].absen+" "+antrian[i].ipk);
+                    i = (i+1)%max;
                 }
                 System.out.println(antrian[i].nama+" "+antrian[i].nim+" "+antrian[i].absen+" "+antrian[i].ipk);
 
@@ -72,27 +66,24 @@ public class queueMhs {
             }
         }
         public void enqueue (mahasiswa antri){
-            if (IsFull()) {
-                System.out.println("queu sudah penuh");
-            }
-            else{
-                if (IsEmpety()) {
+            if(IsFull()){
+                System.out.println("Queue sudah penuh");
+            }else{
+                if(IsEmpety()){
                     front = rear = 0;
-                }
-                else{
-                    if (rear == max -1) {
+                }else{
+                    if (rear == max -1){
                         rear = 0;
-                    }
-                    else{
+                    }else{
                         rear++;
                     }
                 }
-                antrian[rear]=antri;
+                antrian[rear] = antri;
                 size++;
             }
         }
         public mahasiswa denqueue(){
-            mahasiswa antri = new mahasiswa();
+            mahasiswa antri = new mahasiswa(null, null, 0, 0);
             if (IsEmpety()) {
                 System.out.println("queue masih kosong");
             }
@@ -116,7 +107,7 @@ public class queueMhs {
         public void peekPosition(String nim){
             int i = front;
             boolean j = true;
-            while (j) {
+            while (j && i <= rear) {
                 if (nim.equals(this.antrian[i].nim)) {
                     System.out.println("data " + antrian[i].nim + " ada di index ke-" + i);
                     j = false;
