@@ -59,6 +59,17 @@ public class stak {
         }
         System.out.println("");
     }
-
+    public void getMin(){
+        double hrgMin = data[0].harga;
+        int idn = 0;
+        for(int i = 1; i <= top; i++){
+            if (hrgMin > data[i].harga){
+                idn = i;
+                hrgMin = data[i].harga;
+            }
+        }
+        System.out.println("Harga Pakaian Terendah adalah\t: "+data[idn].harga);
+        System.out.println("Dengan merk\t\t\t: "+data[idn].merk);
+    }
 
 }
