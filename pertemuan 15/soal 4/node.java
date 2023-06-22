@@ -1,5 +1,5 @@
 public class node {
-    int data;
+     int data;
     node prev, next;
 
     node(node prev, int data, node next){
