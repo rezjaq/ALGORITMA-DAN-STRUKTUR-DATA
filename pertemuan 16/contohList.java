@@ -1,6 +1,3 @@
-/**
- * contohList
- */
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ArrayList;
@@ -12,7 +9,7 @@ public class contohList {
         l.add(1);
         l.add(2);
         l.add(3);
-        //l.add("Cireng");
+        // l.add("Cireng");
         System.out.printf("Elemen 0 : %d total elemen : %d elemen terakhir : %s\n", 
                 l.get(0), l.size(), l.get(l.size() - 1));
         l.add(4);

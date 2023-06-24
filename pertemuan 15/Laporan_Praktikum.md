@@ -14,955 +14,700 @@ RIZQI REZA DANUARTA
 
 TI-1C
 
-### Latihan Praktikum 2.1
+### Latihan Praktikum 15.2.1
 ``` java 
-class node {
-    int data;
-    node next;
-
-    public node(int nilai, node berikutnya){
-        this.data = nilai;
-        this.next = berikutnya;
+/**
+ * graph
+ */
+public class graph {
+    int vertex;
+    linkedList list[];
+ 
+    public graph(int vertex) {
+        this.vertex = vertex;
+        list = new linkedList[vertex];
+        for (int i = 0;  i< vertex; i++) {
+            list[i] = new linkedList();
+        }
+    }
+ 
+    public void addEdge(int source, int destination) {
+        list[source].addFirst(destination);
+        list[destination].addFirst(source);
+    }
+ 
+    public void degree(int source) throws Exception {
+        System.out.println("degree vertex " + source + " : " + list[source].size());
+        int k, totalIn = 0, totalOut = 0;
+        for (int i = 0; i< vertex; i++) {
+            for (int j = 0; j < list[i].size(); j++) {
+                if (list[i].get(j) == source)
+                    ++totalIn;
+            }
+                //outDegree
+            for (k = 0; k < list[source].size(); k++) {
+                list[source].get(k);
+            }
+            totalOut = k;
+        }
+        System.out.println("Indegree dai vertex " + source + " : " + totalIn);
+        System.out.println("Outdegree dari vertex " + source + " : " + totalOut);
+        System.out.println("degree vertex " + source + " : " + (totalIn + totalOut));
+    }
+    //no 3
+    public void removeEdge(int source, int destination) throws Exception {
+        for (int i = 0; i< vertex; i++) {
+            if (i == destination) {
+                list[source].remove(destination);
+            }
+        }
+    }
+ 
+    public void removeAllEdges() {
+        for (int i = 0; i< vertex; i++) {
+            list[i].clear();
+        }
+        System.out.println("Graph berhasil dikosongkan");
+    }
+ 
+    public void printGraph() throws Exception {
+        for (int i = 0; i< vertex; i++) {
+            if (list[i].size() > 0) {
+                System.out.print("Vertex " + i + " terhubung dengan: ");
+                for (int j = 0; j < list[i].size(); j++) {
+                    System.out.print(list[i].get(j) + " ");
+                }
+                System.out.println("");
+            }
+        }
+        System.out.println(" ");
+    }
+    //no 2
+    public boolean graphType(int source, int destination) throws Exception{
+        list[source].addFirst(destination);
+        return true;
     }
 }
-public class SingleLinkedList {
-    node head; 
-    node tail; 
-    
-    public boolean isEmpty() {
-    return head == null;
-    }
-    public void print(){
-        if(!isEmpty()){
-            node tmp = head;
-            System.out.print("Isi Linked List\t\t\t: ");
-            while(tmp != null){
-                System.out.print(tmp.data +"\t\t");
-                tmp = tmp.next;
-            }
-            System.out.println("");
-        }else{
-            System.out.println("Linked List Kosong");
-        }
-    }
-    public void addFirst(int input){
-        node ndInput = new node(input, null);
-        if(isEmpty()){ 
-            head = ndInput; 
-            tail = ndInput;
-        }else{
-            ndInput.next = head;
-                head = ndInput;
-        }
-    }
-    public void addLast(int input){
-        node ndInput = new node(input, null);
-        if(isEmpty()){
-            head = ndInput; 
-            tail = ndInput;
-        }else{
-            tail.next = ndInput;
-            tail = ndInput;
-        }
-    }
-    public void insertAfter(int key, int input){
-        node ndInput = new node(input, null);
-        node temp = head;
-        do {
-            if (temp.data == key) {
-                ndInput.next = temp.next;
-                temp.next = ndInput;
-                if(ndInput.next == null) tail = ndInput;
-                break;
-            }
-            temp = temp.next;
-        }while (temp != null);
-    }
-    public void insertAt(int index, int input){
-        if (index < 0){
-            System.out.println("Indeks salah");
-        }else if (index == 0){
-            addFirst(input);
-        }else {
-            node temp = head;
-            for(int i=0; i<index-1; i++){
-                temp = temp.next;
-            }
-            temp.next = new node(input, temp.next);
-            if(temp.next.next == null) tail=temp.next;
-        }
-    }
-    public int getData(int index){
-        node tmp = head;
-        for (int i=0; i<index; i++){
-            tmp =  tmp.next;
-        }
-        return tmp.data;
-    }
-    public int indexOf(int key){
-        node tmp = head;
-        int index = 0;
-        while (tmp != null && tmp.data != key) {
-            tmp = tmp.next;
-            index++;
-        }
-        if (tmp == null){
-            return -1;
-        }else{
-            return index;
-        }
-    }
-    public void removeFirst(){
-        if(isEmpty()){
-            System.out.println("Linked List Masih Kosong");
-        }else if (head == tail){
-            head = tail = null;
-        }else{
-            head = head.next;
-        }
-    }
-    public void removeLast() {
-        if (isEmpty()){
-            System.out.println("Linked List Masih kosong, tidak dapat dihapus!");
-        }else if (head == tail){
-            head = tail = null;
-        }else{
-            node temp = head;
-            while (temp.next != tail){
-                temp = temp.next;
-            }
-            temp.next = null;
-            tail = temp;
-        }
-    }
-    public void remove(int key){
-        if(isEmpty()){
-            System.out.println("Linked List Masih kosong, tidak dapat dihapus!");
-        }else {
-            node temp = head;
-            while (temp != null){
-                if((temp.data == key) && (temp == head)){
-                    this.removeFirst();
-                    break;
-                }else if (temp.next.data == key){
-                    temp.next = temp.next.next;
-                    if(temp.next == null){
-                        tail = temp;
-                    }
-                    break;
-                }
-                temp = temp.next;
-            }
-        }
-    }
-    public void removeAt(int index){
-        if(index == 0){
-            removeFirst();
-        }else{
-            node temp = head;
-            for(int i=0; i < index-1; i++){
-                temp = temp.next;
-            }
-            temp.next = temp.next.next;
-            if (temp.next == null){
-                tail = temp;
-            }
-        }
-    }
-    public void insertBefore(int key, int input){
-        node ndInput = new node(input, null);
-        node temp = head;
-        node prev = null;
+import java.util.Scanner;
+
+public class graphMain {
+    public static void main(String[] args) throws Exception {
+        Scanner sc = new Scanner(System.in);
+        int vertex, edge, source, destination;
+        graph grp = new graph(6);
         
+        System.out.print("Masukkan Vertex\t\t: ");
+        vertex = sc.nextInt();
+        
+        System.out.print("Masukkan Edge\t\t: ");
+        edge = sc.nextInt();
+        
+        int menu;
         do{
-            if(head.data == key){
-                addFirst(input);
-                break;
-            }else if (temp.data == key){
-                ndInput.next = temp;
-                prev.next = ndInput;
-                if(temp.next == null){
-                    tail = ndInput;
-                    break;
+            System.out.println("Pilih menu dibawah ini");
+            System.out.println("1. Directed(Tugas Praktikum 1)\n2. Undirected(Tugas Pratikum 2)");
+            System.out.print("Masukkan Menu : ");
+            menu = sc.nextInt();
+            
+            if(menu == 1){
+                
+                for(int i=0; i<edge; i++){
+                    System.out.print("Masukkan Source\t\t: ");
+                    source = sc.nextInt();
+                    System.out.print("Masukkan Destination\t: ");
+                    destination = sc.nextInt();
+            
+                    grp.addEdge(source, destination);
                 }
+            System.out.println("");
+            grp.printGraph();
+            }else if(menu == 2){
+                
+                for(int i=0; i<edge; i++){
+                    System.out.print("Masukkan Source\t\t: ");
+                    source = sc.nextInt();
+                    System.out.print("Masukkan Destination\t: ");
+                    destination = sc.nextInt();
+            
+                    grp.graphType(source, destination);
+                }
+            System.out.println("");
+            grp.printGraph();
             }
-            prev = temp;
-            temp = temp.next;
-        }while (temp != null);
+        }while (menu != 1 && menu != 2);
     }
-}public class SLLmain {
-    public static void main(String[] args) {
-        SingleLinkedList singLL = new SingleLinkedList();
-        
-        singLL.print();
-        singLL.addFirst(890);
-        singLL.print();
-        singLL.addLast(760);
-        singLL.print();
-        singLL.addFirst(700);
-        singLL.print();
-        singLL.insertAfter(700, 999);
-        singLL.print();
-        singLL.insertAt(3, 833);
-        singLL.print();
-    }
+    
 }
 ```
-<img src="img/P1.png">
+<img src="img/hasil 1 percobaan 1.png">
+<img src="img/hasil 1.1 percobaan 1.png">
 
-#### pertanyaan 2.3
-1.  Mengapa hasil compile kode program di baris pertama menghasilkan “Linked List Kosong”? 
+#### pertanyaan 15.2.3
+1.  Jelaskan perbedaan antara single linked list dengan double linked lists! 
 
-    jawaban : karena linked list (node) masih belum memiliki isi atau data, dimana pada sllMain langsung dilakukan pemanggilan method print diawal pemanggilan yang mana node masih belum di isi data sama sekali, sehingga system akan menampilkan "Linked List Kosong"
+    jawaban :  Algoritma Prim, kegunaannya adalah mencari pohon rentang minimum untuk sebuah graf berbobot yang terhubung. Ini berarti menemukan subset dari tepi yang membentuk sebuah pohon yang mencakup etiap titik, di mana berat total semua tepi di pohon diminimalkan. Jika grafik tidak terhubung, maka ia menemukan hutan rentang minimum (pohon rentang minimum untuk setiap komponen terhubung).
 
-2. Pada step 10, jelaskan kegunaan kode berikut
-<img src="img/per2.png">
+    Algoritma Dijkstra, kegunaannya adalah dipakai dalam memecahkan permasalahan jarak terpendek (shortest path problem) untuk sebuah graf berarah (directed graph)
 
-    jawaban : jika temp.data sama dengan key, maka kode program otomatis mengubah nilai variabel ndInput.next menjadi variabel temp.next serta nantinya pada variable ndInput untuk menyimpan nilainya
+    Algoritma Warshall , kegunaannya menghitung jarak terpendek (shortest path) untuk semua pasangan titik pada sebuah graph, dan melakukannya dalam waktu berorde kubik. Algoritma warshall digunakan untuk menyelesaikan permasalahan jalur terpendek multi path
 
-3. Perhatikan class SingleLinkedList, pada method insertAt Jelaskan kegunaan kode berikut 
-<img src="img/per3.png">
-
-    jawaban : ika temp.next.next == nul maka akan mengembalikan nilai -1 atau data kosong, dan jika tidak ada kondisi yang terpenuhi sama sekali maka akan mengembalikan nilai dari index yaitu 0
+2. Pada class Graph terdapat array bertipe LinkedList, yaitu LinkedList list[]. Apakah tujuan pembuatan variabel tersebut ?
 
 
+    jawaban :  berfungsi untuk di Untuk memanggil fungsi linked list dan mengisi list yang berupa vertex pada linked list tersebut.
 
-### 2.2.1
+3. Apakah alasan pemanggilan method addFirst() untuk menambahkan data, bukan method add jenis lain pada linked list ketika digunakan pada method addEdge pada class Graph?
+
+    jawaban : Atribut head digunakan untuk menyimpan referensi ke elemen pertama dalam double linked list.
+    Atribut size digunakan untuk melacak jumlah elemen dalam double linked list.
+
+4. Bagaimana cara mendeteksi prev pointer pada saat akan melakukan penghapusan suatu edge pada graph ?
+
+    jawaban :  ketika i == destination maka akan dilihat source dari i atau dengan cara melakukan looping vertex.
+
+5. Kenapa pada praktikum 2.1.1 langkah ke-12 untuk menghapus path yang bukan merupakan lintasan pertama kali menghasilkan output yang salah ? Bagaimana solusinya ?
+
+    jawaban : output program diatas tidak ada yang eror, akan tetapi vertex yang dilewati mengalami perubahan lintasan
+
+#### Langkah-Langkah Praktikum 2.3.1
 ``` java
-public class SingleLinkedList {
-    node head; 
-    node tail; 
-    
-    public boolean isEmpty() {
-    return head == null;
-    }
-    public void print(){
-        if(!isEmpty()){
-            node tmp = head;
-            System.out.print("Isi Linked List\t\t\t: ");
-            while(tmp != null){
-                System.out.print(tmp.data +"\t\t");
-                tmp = tmp.next;
-            }
-            System.out.println("");
-        }else{
-            System.out.println("Linked List Kosong");
-        }
-    }
-    public void addFirst(int input){
-        node ndInput = new node(input, null);
-        if(isEmpty()){ 
-            head = ndInput; 
-            tail = ndInput;
-        }else{
-            ndInput.next = head;
-                head = ndInput;
-        }
-    }
-    public void addLast(int input){
-        node ndInput = new node(input, null);
-        if(isEmpty()){
-            head = ndInput; 
-            tail = ndInput;
-        }else{
-            tail.next = ndInput;
-            tail = ndInput;
-        }
-    }
-    public void insertAfter(int key, int input){
-        node ndInput = new node(input, null);
-        node temp = head;
-        do {
-            if (temp.data == key) {
-                ndInput.next = temp.next;
-                temp.next = ndInput;
-                if(ndInput.next == null) tail = ndInput;
-                break;
-            }
-            temp = temp.next;
-        }while (temp != null);
-    }
-    public void insertAt(int index, int input){
-        if (index < 0){
-            System.out.println("Indeks salah");
-        }else if (index == 0){
-            addFirst(input);
-        }else {
-            node temp = head;
-            for(int i=0; i<index-1; i++){
-                temp = temp.next;
-            }
-            temp.next = new node(input, temp.next);
-            if(temp.next.next == null) tail=temp.next;
-        }
-    }
-    public int getData(int index){
-        node tmp = head;
-        for (int i=0; i<index; i++){
-            tmp =  tmp.next;
-        }
-        return tmp.data;
-    }
-    public int indexOf(int key){
-        node tmp = head;
-        int index = 0;
-        while (tmp != null && tmp.data != key) {
-            tmp = tmp.next;
-            index++;
-        }
-        if (tmp == null){
-            return -1;
-        }else{
-            return index;
-        }
-    }
-    public void removeFirst(){
-        if(isEmpty()){
-            System.out.println("Linked List Masih Kosong");
-        }else if (head == tail){
-            head = tail = null;
-        }else{
-            head = head.next;
-        }
-    }
-    public void removeLast() {
-        if (isEmpty()){
-            System.out.println("Linked List Masih kosong, tidak dapat dihapus!");
-        }else if (head == tail){
-            head = tail = null;
-        }else{
-            node temp = head;
-            while (temp.next != tail){
-                temp = temp.next;
-            }
-            temp.next = null;
-            tail = temp;
-        }
-    }
-    public void remove(int key){
-        if(isEmpty()){
-            System.out.println("Linked List Masih kosong, tidak dapat dihapus!");
-        }else {
-            node temp = head;
-            while (temp != null){
-                if((temp.data == key) && (temp == head)){
-                    this.removeFirst();
-                    break;
-                }else if (temp.next.data == key){
-                    temp.next = temp.next.next;
-                    if(temp.next == null){
-                        tail = temp;
-                    }
-                    break;
-                }
-                temp = temp.next;
-            }
-        }
-    }
-    public void removeAt(int index){
-        if(index == 0){
-            removeFirst();
-        }else{
-            node temp = head;
-            for(int i=0; i < index-1; i++){
-                temp = temp.next;
-            }
-            temp.next = temp.next.next;
-            if (temp.next == null){
-                tail = temp;
-            }
-        }
-    }
-    public void insertBefore(int key, int input){
-        node ndInput = new node(input, null);
-        node temp = head;
-        node prev = null;
+public class graphArray {
+      private final int vertices;
+        private final int [][] twoD_array;
         
-        do{
-            if(head.data == key){
-                addFirst(input);
-                break;
-            }else if (temp.data == key){
-                ndInput.next = temp;
-                prev.next = ndInput;
-                if(temp.next == null){
-                    tail = ndInput;
-                    break;
-                }
-            }
-            prev = temp;
-            temp = temp.next;
-        }while (temp != null);
+    public graphArray(int v){
+       vertices = v;
+       twoD_array = new int [vertices + 1][vertices + 1];
+    }
+    public void makeEdge(int to, int from, int edge){
+       try{
+           twoD_array[to][from] = edge;
+       }
+       catch(ArrayIndexOutOfBoundsException index){
+           System.out.println("Vertex Tidak Ada");
+       }
+   }
+    public int getEdge(int to, int from){
+       try{
+           return twoD_array[to][from];
+       }
+       catch(ArrayIndexOutOfBoundsException index){
+           System.out.println("Vertex Tidak Ada");
+       }
+       return -1;
     }
 }
-public class SLLmain {
-    public static void main(String[] args) {
-        SingleLinkedList singLL = new SingleLinkedList();
-        
-        singLL.print();
-        singLL.addFirst(890);
-        singLL.print();
-        singLL.addLast(760);
-        singLL.print();
-        singLL.addFirst(700);
-        singLL.print();
-        singLL.insertAfter(700, 999);
-        singLL.print();
-        singLL.insertAt(3, 833);
-        singLL.print();
+import java.util.Scanner;
 
-        System.out.println("\nData pada index ke-1\t\t: "+singLL.getData(1));
-        System.out.println("Data 3 berada pada indeks ke\t: "+singLL.indexOf(760)+"\n");
+public class graphArrayMain {
+    public static void main(String[] args) {
+         int v, e, count = 1, to = 0, from = 0;
+        Scanner sc = new Scanner(System.in);
+        graphArray graph;
         
-        singLL.remove(999);
-        singLL.print();
-        singLL.removeAt(0);
-        singLL.print();
-        singLL.removeFirst();
-        singLL.print();
-        singLL.removeLast();
-        singLL.print();
+        try{
+            System.out.print("Masukkan Jumlah Vertices\t: ");
+            v = sc.nextInt();
+            System.out.print("Masukkan Jumlah Edges\t\t: ");
+            e = sc.nextInt();
+            
+            graph = new graphArray(v);
+            
+            System.out.println("Masukkan edges : <to> <from>");
+            while (count <= e){
+                to = sc.nextInt();
+                from = sc.nextInt();
+                
+                graph.makeEdge(to, from, 1);
+                count++;
+                }
+            System.out.println("Array 2D sebagai representasi graph sbb: ");
+            System.out.print("  ");
+            for(int i =1; i<=v; i++){
+                    System.out.print(i+" ");
+                }
+                System.out.println();
+            
+                for(int i =1; i<=v; i++){
+                    System.out.print(i+" ");
+                    for(int j=1; j<=v; j++){
+                        System.out.print(graph.getEdge(i, j)+" ");
+                    }
+                    System.out.println();
+            }
+        }catch(Exception E){
+        System.out.println("Error\n"+ E.getMessage());
+        }
+        sc.close();
     }
+    
 }
 ```
-<img src="img/P2.png">
-
+<img src="img/hasil 1 percobaan 2.png">
+<img src="img/hasil 2 percobaan 2.png">
 
 #### pertanyaan 2.3.3
-1.  Mengapa digunakan keyword break pada fungsi remove? Jelaskan!
+1.  Apakah perbedaan degree/derajat pada directed dan undirected graph?
 
-    jawaban : terdapat dua break yang ada pada method remove, break yang pertama berfungsi untuk jika data yang dihapus ada pada head dan ditemukan maka program akan langsung break, break yang kedua berfungsi untuk jika data yang dihapus berada ditengah dan ditemukan maka program akan langsung break
-2. Jelaskan kegunaan kode dibawah pada method remove
+    jawaban : pada directed graph degree / derajat tidak selalu berhubungan kembali sedangkan pada undirected graph degree/derajat pasti berhubungan
 
-<img src="img/per2.2.png">
+2. Pada implementasi graph menggunakan adjacency matriks. Kenapa jumlah vertices harus ditambahkan dengan 1 pada indeks array berikut?
     
+    jawaban :karena menggunakan array dan dimulai dari 0, maka harus perlu ditambah dengan 1
+
+
+3. Apakah kegunaan method getEdge() ?
+
+    jawaban :  berfungsi untuk menampilkan suatu lintasan yang diperlukan
+
+4. Termasuk jenis graph apakah uji coba pada praktikum 2.2?
+
+    jawaban : "Directed graph" karena 1 berhubungan dengan 2 akan tetapi 2 tidak berhubungan dengan 1
+
+5. Mengapa pada method main harus menggunakan try-catch Exception ?
+
+    jawaban : eksekusi program dapat terus berjalan tanpa memberhentikan program sehingga meminimalisir terjadinya eror atau output tidak muncul
     
-    jawaban :jika node yang dipilih memiliki data yang sama (equals) dengan key, maka terjadi perubahan posisi dimana node tersebut akan digantikan oleh node yang selanjutnya
+### TUGAS PRAKTIKUM
+1. Ubahlah lintasan pada praktikum 2.1 menjadi inputan!
 
+jawaban :
 
-3. Apa saja nilai kembalian yang dapat dikembalikan pada method indexOf? Jelaskan maksud
-masing-masing kembalian tersebut!
-
-    jawaban : jika tmp == null maka akan mengembalikan nilai -1 atau data kosong dan jika tidak ada kondisi yang terpenuhi sama sekali maka akan mengembalikan nilai index yaitu 0
-
-### Latihan Praktikum
-### TUGAS
-1. Buat method insertBefore untuk menambahkan node sebelum keyword yang diinginkan
-
-    jawaban :
 ```java
-public void insertBefore(int key, int input){
-        node ndInput = new node(input, null);
-        node temp = head;
-        node prev = null;
-        
+int vertex, edge, source, destination;
+        graph grp = new graph(6);
+    
+        System.out.print("Masukkan Vertex\t\t: ");
+        vertex = sc.nextInt();
+    
+        System.out.print("Masukkan Edge\t\t: ");
+        edge = sc.nextInt();
+    
+        int menu;
         do{
-            if(head.data == key){
-                addFirst(input);
-                break;
-            }else if (temp.data == key){
-                ndInput.next = temp;
-                prev.next = ndInput;
-                if(temp.next == null){
-                    tail = ndInput;
-                    break;
-                }
-            }
-            prev = temp;
-            temp = temp.next;
-        }while (temp != null);
-    }
-```
-
-
-2. Implementasikan ilustrasi Linked List Berikut. Gunakan 4 macam penambahan data yang telah dipelajari sebelumnya untuk menginputkan data
-
-    jawaban : 
-
-```java
-class node {
-    char data;
-    node next;
-
-    public node(char input, node berikutnya){
-        this.data = input;
-        this.next = berikutnya;
-    }
-}
-public class SingleLinkedList {
-    node head; 
-    node tail; 
-    
-    public boolean isEmpty() {
-    return head == null;
-    }
-    public void print(){
-        if(!isEmpty()){
-            node tmp = head;
-            System.out.print("Isi Linked List\t\t\t: ");
-            while(tmp != null){
-                System.out.print(tmp.data +"\t\t");
-                tmp = tmp.next;
-            }
-            System.out.println("");
-        }else{
-            System.out.println("Linked List Kosong");
-        }
-    }
-    public void addFirst(char input){
-        node ndInput = new node(input, null);
-        if(isEmpty()){ 
-            head = ndInput; 
-            tail = ndInput;
-        }else{
-            ndInput.next = head;
-                head = ndInput;
-        }
-    }
-    public void addLast(char input){
-        node ndInput = new node(input, null);
-        if(isEmpty()){
-            head = ndInput; 
-            tail = ndInput;
-        }else{
-            tail.next = ndInput;
-            tail = ndInput;
-        }
-    }
-    public void insertAfter(int key, char input){
-        node ndInput = new node(input, null);
-        node temp = head;
-        do {
-            if (temp.data == key) {
-                ndInput.next = temp.next;
-                temp.next = ndInput;
-                if(ndInput.next == null) tail = ndInput;
-                break;
-            }
-            temp = temp.next;
-        }while (temp != null);
-    }
-    public void insertAt(int index, char input){
-        if (index < 0){
-            System.out.println("Indeks salah");
-        }else if (index == 0){
-            addFirst(input);
-        }else {
-            node temp = head;
-            for(int i=0; i<index-1; i++){
-                temp = temp.next;
-            }
-            temp.next = new node(input, temp.next);
-            if(temp.next.next == null) tail=temp.next;
-        }
-    }
-    public int getData(int index){
-        node tmp = head;
-        for (int i=0; i<index; i++){
-            tmp =  tmp.next;
-        }
-        return tmp.data;
-    }
-    public int indexOf(int key){
-        node tmp = head;
-        int index = 0;
-        while (tmp != null && tmp.data != key) {
-            tmp = tmp.next;
-            index++;
-        }
-        if (tmp == null){
-            return -1;
-        }else{
-            return index;
-        }
-    }
-    public void removeFirst(){
-        if(isEmpty()){
-            System.out.println("Linked List Masih Kosong");
-        }else if (head == tail){
-            head = tail = null;
-        }else{
-            head = head.next;
-        }
-    }
-    public void removeLast() {
-        if (isEmpty()){
-            System.out.println("Linked List Masih kosong, tidak dapat dihapus!");
-        }else if (head == tail){
-            head = tail = null;
-        }else{
-            node temp = head;
-            while (temp.next != tail){
-                temp = temp.next;
-            }
-            temp.next = null;
-            tail = temp;
-        }
-    }
-    public void remove(int key){
-        if(isEmpty()){
-            System.out.println("Linked List Masih kosong, tidak dapat dihapus!");
-        }else {
-            node temp = head;
-            while (temp != null){
-                if((temp.data == key) && (temp == head)){
-                    this.removeFirst();
-                    break;
-                }else if (temp.next.data == key){
-                    temp.next = temp.next.next;
-                    if(temp.next == null){
-                        tail = temp;
-                    }
-                    break;
-                }
-                temp = temp.next;
-            }
-        }
-    }
-    public void removeAt(int index){
-        if(index == 0){
-            removeFirst();
-        }else{
-            node temp = head;
-            for(int i=0; i < index-1; i++){
-                temp = temp.next;
-            }
-            temp.next = temp.next.next;
-            if (temp.next == null){
-                tail = temp;
-            }
-        }
-    }
-    public void insertBefore(int key, char input){
-        node ndInput = new node(input, null);
-        node temp = head;
-        node prev = null;
+            System.out.println("Pilihan Menu");
+            System.out.println("1. Directed(Tugas Praktikum 1)");
+            System.out.println("1. Undirected(Tugas Praktikum 2");
+            System.out.print("Masukkan Menu : ");
+            menu = sc.nextInt();
         
-        do{
-            if(head.data == key){
-                addFirst(input);
-                break;
-            }else if (temp.data == key){
-                ndInput.next = temp;
-                prev.next = ndInput;
-                if(temp.next == null){
-                    tail = ndInput;
-                    break;
+            if(menu == 1){
+                
+                for(int i=0; i<edge; i++){
+                    System.out.print("Masukkan Source\t\t: ");
+                    source = sc.nextInt();
+                    System.out.print("Masukkan Destination\t: ");
+                    destination = sc.nextInt();
+        
+                    grp.addEdge(source, destination);
+                }
+                System.out.println("");
+                grp.printGraph();
+            }else if(menu == 2){
+            
+                for(int i=0; i<edge; i++){
+                    System.out.print("Masukkan Source\t\t: ");
+                    source = sc.nextInt();
+                    System.out.print("Masukkan Destination\t: ");
+                    destination = sc.nextInt();
+        
+                    grp.graphType(source, destination);
                 }
             }
-            prev = temp;
-            temp = temp.next;
-        }while (temp != null);
-    }
-}
-public class SLLMain2 {
-    public static void main(String[] args) {
-    SingleLinkedList singLL = new SingleLinkedList();
-    singLL.addFirst('a');
-    singLL.print();
-    singLL.addLast('e');
-    singLL.print();
-    singLL.insertAfter('a','b');
-    singLL.print();
-    singLL.insertAt(2, 'c');
-    singLL.print();
-    singLL.insertBefore('e', 'd');
-    singLL.print();
-    
-    System.out.println("\nMaka Penambahan data sudah sesuai seperti berikut ini");
-    singLL.print();
-    }
-}
+        }while (menu != 1 && menu != 2);
 ```
-<img src="img/jawabanT2.png">
+<img src="img/hasil tugas 1.png">
+<img src="img/hasil tugas 1.1.png">
 
-3. Buatlah Implementasi Stack berikut menggunakan Single Linked List
-<img src="img/tugas3.png">
 
-    jawaban : 
+3. Tambahkan method graphType dengan tipe boolean yang akan membedakan graph termasuk
+directed atau undirected graph. Kemudian update seluruh method yang berelasi dengan method
+graphType tersebut (hanya menjalankan statement sesuai dengan jenis graph) pada praktikum
+2.1
+
+jawaban : 
 
 ```java
-public class tugasSL3 {
-    String data;
-    tugasSL3 next;
-
-    public tugasSL3(String nilai, tugasSL3 berikutnya){
-        this.data = nilai;
-        this.next = berikutnya;
-    }
-}
-public class SingleLinkedListTugas3 {
-    tugasSL3 head; 
-    tugasSL3 tail; 
-    
-    public boolean isEmpty() {
-    return head == null;
-    }
-    
-    public void tambah(){
-        if(!isEmpty()){
-            tugasSL3 tmp = head;
-            System.out.println("Berhasil menambahkan "+ tmp.data);
-        }
-    }
-    public void print(){
-        if(!isEmpty()){
-            tugasSL3 tmp = head;
-            while(tmp != null){
-                System.out.println(tmp.data);
-                tmp = tmp.next;
-            }
-            System.out.println();
-        }else{
-            System.out.println("Linked List Kosong");
-        }
-    }
-    public void peek(){
-        if(!isEmpty()){
-            tugasSL3 tmp = head;
-            System.out.println("Elemen Teratas : "+tmp.data);
-        }else{
-        System.out.println("Stack Masih Kosong");
-        }
-    }
-    public void push(String input){
-        tugasSL3 ndInput = new tugasSL3(input, null);
-        if(isEmpty()){ 
-            head = ndInput; 
-            tail = ndInput;
-        }else{
-            ndInput.next = head;
-            head = ndInput;
-        }
-    }
-}
-public class SLLmain3 {
-    public static void main(String[] args) {
-        SingleLinkedListTugas3 singLL = new SingleLinkedListTugas3();
-        System.out.println("-----------Linked List--------");
-        System.out.println("------------------------------");
-        singLL.push("Bahasa");
-        singLL.tambah();
-        singLL.print();
-        singLL.push("Android");
-        singLL.tambah();
-        singLL.print();
-        singLL.push("Komputer");
-        singLL.tambah();
-        singLL.print();
-        singLL.push("Basis Data");
-        singLL.tambah();
-        singLL.print();
-        singLL.push("Matematika");
-        singLL.tambah();
-        singLL.print();
-        singLL.push("Algoritma");
-        singLL.tambah();
-        singLL.print();
-        singLL.push("Statistika");
-        singLL.tambah();
-        singLL.print();
-        singLL.push("Multimedia");
-        singLL.tambah();
-        singLL.print();
-        
-        System.out.println("\n-----Isi Stack menjadi----\n");
-        singLL.print();
-        singLL.peek();
-    }
+public boolean graphType(int source, int destination) throws Exception{
+    list[source].addFirst(destination);
+    return true;
 }
 ```
-hasil output dari program diatas 
-<img src="img/tugas3.1.png">
-<img src="img/tugas3.2.png">
-<img src="img/tugas3.3.png">
-<img src="img/tugas3.4.png">
-<img src="img/tugas3.6.png">
+4. Ubahlah tipe data vertex pada seluruh graph pada praktikum 2.1 dan 2.2 dari Integer menjadi tipe generic agar dapat menerima semua tipe data dasar Java! Misalnya setiap vertex yang awalnya berupa angka 0,1,2,3, dst. selanjutnya ubah menjadi suatu nama daerah seperti Gresik, Bandung, Yogya, Malang, dst.
 
-4. Buatlah implementasi program antrian untuk mengilustasikan mahasiswa yang sedang meminta
-tanda tangan KRS pada dosen DPA di kampus pada tugas jobsheet 8 menggunakan LinkedList.
-Implementasikan Queue pada antrian mahasiswa dengan menggunakan konsep LinkedList!
-
-    jawaban : 
+jawaban :
 ```java
-public class tugasSL4 {
-    String nim, nama;
-    int absen;
-    double ipk;
-    tugasSL4 next;
+public class node4A {
+     int data;
+    node4A prev, next;
 
-    public tugasSL4(String nim, String nama, int absen, double ipk, tugasSL4 berikutnya){
-        this.nim = nim;
-        this.nama = nama;
-        this.absen = absen;
-        this.ipk =ipk;
-        this.next = berikutnya;
+    node4A(node4A prev, int data, node4A next){
+        this.prev = prev;
+        this.data = data;
+        this.next = next;
     }
 }
-public class SingleLinkedListTugas4 {
-    tugasSL4 head; //posisi awal linked list
-    tugasSL4 tail; //posisi akhir linked list
+class linkedList4A {
+    node4A head;
+    int size;
+
+    public linkedList4A() {
+        head = null;
+        size = 0;
+    }
 
     public boolean isEmpty() {
         return head == null;
     }
-    public void print(){
-        if(!isEmpty()){
-            tugasSL4 tmp = head;
-            int antrian = 0;
-            while(tmp != null){
-                System.out.println("Mahasiswa ke - "+(antrian+1)+" = "+tmp.nim+" "+tmp.nama+" "+tmp.absen+" "+tmp.ipk);
-                tmp = tmp.next;
-                antrian ++;
+
+    public void addFirst(int item) {
+        if (isEmpty()) {
+            head = new node4A(null, item, null);
+        } else {
+            node4A newnode4A = new node4A(null, item, head);
+            head.prev = newnode4A;
+            head = newnode4A;
+        }
+        size++;
+    }
+
+    public void addLast(int item) {
+        if (isEmpty()) {
+            addFirst(item);
+        } else {
+            node4A current = head;
+            while (current.next != null) {
+                current = current.next;
             }
-            System.out.println();
-        }else{
+            node4A newnode4A = new node4A(current, item, null);
+            current.next = newnode4A;
+            size++;
+        }
+    }
+
+    public void add(int item, int index) throws Exception {
+        if (isEmpty()) {
+            addFirst(item);
+        } else if (index < 0 || index > size) {
+            throw new Exception("Nilai indeks di luar batas");
+        } else {
+            node4A current = head;
+            int i = 0;
+            while (i < index) {
+                current = current.next;
+                i++;
+            }
+            if (current.prev == null) {
+                node4A newnode4A = new node4A(null, item, current);
+                current.prev = newnode4A;
+                head = newnode4A;
+            } else {
+                node4A newnode4A = new node4A(current.prev, item, current);
+                newnode4A.prev = current.prev;
+                newnode4A.next = current;
+                current.prev.next = newnode4A;
+                current.prev = newnode4A;
+            }
+        }
+        size++;
+    }
+
+    public int size() {
+        return size;
+    }
+
+    public void clear() {
+        head = null;
+        size = 0;
+    }
+
+    public void print() {
+        if (!isEmpty()) {
+            node4A tmp = head;
+            while (tmp != null) {
+                System.out.print(tmp.data + "\t");
+                tmp = tmp.next;
+            }
+            System.out.println("\nberhasil diisi");
+        } else {
             System.out.println("Linked List Kosong");
         }
     }
-    public void addLast(String nim, String nama, int absen, double ipk){
-        tugasSL4 ndInput = new tugasSL4(nim, nama, absen, ipk, null);
-        if(isEmpty()){
-            head = ndInput; //head dan tail sama dengan node input
-            tail = ndInput;
-        }else{
-            tail.next = ndInput;
-            tail = ndInput;
-        }
-    }
-    public void peek(){
-        if(!isEmpty()){
-            tugasSL4 tmp = head;
-            System.out.println("Elemen terdepan : "+tmp.nim+ " "+tmp.nama+" "+tmp.absen+" "+tmp.ipk);
-        }else{
-            System.out.println("Queue masih kosong");
-        }
-    }
-    public void peekRear(){
-        if(!isEmpty()){
-            tugasSL4 tmp = tail;
-            System.out.println("Elemen yang belakang : "+tmp.nama+ " "+tmp.nim+" "+tmp.absen+" "+tmp.ipk);
-        }else{
-            System.out.println("Queue masih kosong");
-        }
-    }
-    public void cariIndex(int index){
-        if(isEmpty()){
-            System.out.println("Antrian masih kosong");
-        }else{
-            tugasSL4 tmp = head;
-            for(int i=0; i<index; i++){
-                tmp = tmp.next;
-            }
-            System.out.println("Data pada index ke-"+index+" "+tmp.nim+" "+tmp.nama+" "+tmp.absen+" "+tmp.ipk);
-        }
-    }
-    public void cariNim(String key){
-        tugasSL4 tmp = head;
-        int index = 0;
-        while (tmp != null &&(!(tmp.nim.equals(key)))) {
-            tmp = tmp.next;
-            index++;
-        }
-        if (tmp == null){
-            System.out.println("Antrian Kosong");
-        }else{
-            System.out.println("Data "+key+" berada pada index ke "+index);
-        }
-        System.out.println("Data Mahasiswa : "+tmp.nim+" "+tmp.nama+" "+tmp.absen+" "+tmp.ipk);
-    }
-    public void removeFirst(){
-        if(isEmpty()){
-            System.out.println("Linked List Masih Kosong");
-        }else if (head == tail){
-            head = tail = null;
-        }else{
+
+    public void removeFirst() throws Exception {
+        if (isEmpty()) {
+            throw new Exception("Linked List Masih kosong, tidak dapat dihapus!");
+        } else if (size == 1) {
+            removeLast();
+        } else {
             head = head.next;
+            head.prev = null;
+            size--;
         }
+    }
+
+    public void removeLast() throws Exception {
+        if (isEmpty()) {
+            throw new Exception("Linked list masih kosong, tidak dapat dihapus!");
+        } else if (head.next == null) {
+            head = null;
+            size--;
+            return;
+        }
+        node4A current = head;
+        while (current.next.next != null) {
+            current = current.next;
+        }
+        current.next = null;
+        size--;
+    }
+
+    public void remove(int index) throws Exception {
+        if (isEmpty() || index >= size) {
+            throw new Exception("Nilai indeks di luar batas");
+        } else if (index == 0) {
+            removeFirst();
+        } else {
+            node4A current = head;
+            int i = 0;
+            while (i < index) {
+                current = current.next;
+                i++;
+            }
+            if (current.next == null) {
+                current.prev.next = null;
+            } else if (current.prev == null) {
+                current = current.next;
+                current.prev = null;
+                head = current;
+            } else {
+                current.prev.next = current.next;
+                current.next.prev = current.prev;
+            }
+            size--;
+        }
+    }
+
+    public int getFirst() throws Exception {
+        if (isEmpty()) {
+            throw new Exception("Linked List Kosong");
+        }
+        return head.data;
+    }
+
+    public int getLast() throws Exception {
+        if (isEmpty()) {
+            throw new Exception("Linked List Kosong");
+        }
+        node4A tmp = head;
+        while (tmp.next != null) {
+            tmp = tmp.next;
+        }
+        return tmp.data;
+    }
+
+    public int get(int index) throws Exception {
+        if (isEmpty() || index >= size) {
+            throw new Exception("nilai indeks diluar batas");
+        }
+        node4A tmp = head;
+        for (int i = 0; i < index; i++) {
+            tmp = tmp.next;
+        }
+        return tmp.data;
     }
 }
 import java.util.*;
-public class SLLmain4 {
-    public static void menu(){
-        System.out.println("\nPilih Menu ");
-        System.out.println(" 1. Antrian baru\n 2. Antrian Keluar\n 3. Cek Antrian Terdepan\n 4. Cek Semua Antrian\n 5. Cek Antrian Paling Belekang\n 6. Cari index Mahasiswa dengan Nim\n 7. Cek data mahasiswa berdasarkan antrian\n 8. Keluar");
-        System.out.println("-----------------------------------");
-    }
-    public static void main(String[] args) {
+class graphMain4A {
+    public static void main(String[] args) throws Exception {
         Scanner sc = new Scanner(System.in);
-        Scanner num = new Scanner(System.in);
-        Scanner dou = new Scanner(System.in);
-    
-        SingleLinkedListTugas4 singLL = new SingleLinkedListTugas4();
+        System.out.print("Masukkan Vertex\t\t\t: ");
+        String[] vertex = new String[sc.nextInt()];
+        sc.nextLine();
 
-        int pilih;
-        do{
-            menu();
-            pilih = sc.nextInt();
-            sc.nextLine();
-    
-        switch(pilih){
-            case 1:
-                System.out.print("Nim Mahasiswa\t: ");
-                String nim = sc.nextLine();
-                System.out.print("Nama Mahasiswa\t: ");
-                String nama = sc.nextLine();
-                System.out.print("Absen Mahasiswa\t: ");
-                int absen = num.nextInt();
-                System.out.print("IPK Mahasiswa\t: ");
-                double ipk = dou.nextDouble();
-                singLL.addLast(nim, nama, absen, ipk);
-                sc.nextLine();
-            break;
-            
-            case 2:
-                singLL.removeFirst();
-                System.out.println("mahasiswa urutan awal ");
-                System.out.println("Sisa antrian\n");
-                singLL.print();
-            break;
-            
-            case 3:
-                System.out.println("Berikut adalah antrian mahasiswa terdepan");
-                singLL.peek();
-            break;
-            
-            case 4:
-                System.out.println("Semua Data Antrian");
-                singLL.print();
-            break;
-            
-            case 5:
-                System.out.println("Berikut adalah antrian mahasiswa paling belakang !");
-                singLL.peekRear();
-            break;
-            
-            case 6:
-                System.out.println("Pencarian Index Mahasiswa Dengan Nim");
-                System.out.print("Masukkan Nim mahasiswa : ");
-                String nimm = sc.nextLine();
-                singLL.cariNim(nimm);
-            break;
-            
-            case 7:
-                System.out.println("Pencarian data mahasiswa berdasarkan antrian");
-                System.out.print("Masukkan antrian Mahasiswa : ");
-                int antrian = num.nextInt();
-                singLL.cariIndex(antrian);
-            break;
-            
-            case 8:
-                System.out.println("Terima Kasih Telah menggunakan layanan kami");
-                System.out.println("Semoga dengan aplikasi ini dapat bermanfaat bagi anda");
-                System.out.println("SELAMAT TINGGAL DAN SAMPAI JUMPA");
-                System.exit(0);
-            break;
+        for (int i = 0; i < vertex.length; i++) {
+            System.out.print("Masukkan data vertex ke-" + i + "\t: ");
+            vertex[i] = sc.nextLine();
         }
-    }while (pilih == 1 || pilih == 2 || pilih == 3 || pilih == 4 || pilih == 5 || pilih == 6 || pilih == 7 || pilih == 8);
+
+        graph4A<String> gph = new graph4A<String>(vertex);
+
+        System.out.print("Masukkan Edge\t\t\t: ");
+        int edge = sc.nextInt();
+
+        int menu;
+        do {
+            System.out.println("Pilih menu dibawah ini");
+            System.out.println("1. Directed\n2. Undirected");
+            System.out.print("Masukkan Menu : ");
+            menu = sc.nextInt();
+
+            System.out.println("Masukkan Edge: <from> <to>");
+            if (menu == 1) {
+                for (int i = 0; i < edge; i++) {
+                    gph.graph4AType(sc.nextInt(), sc.nextInt());
+                }
+                gph.printgraph4A();
+
+            } else if (menu == 2) {
+                for (int i = 0; i < edge; i++) {
+                    gph.addEdge(sc.nextInt(), sc.nextInt());
+                }
+                gph.printgraph4A();
+            }
+        } while (menu != 1 && menu != 2);
+        sc.close();
+    }
 }
+import java.util.Scanner;
+
+public class graph4A<T> {
+    T[] vertex;
+    linkedList4A list[];
+
+    public graph4A(T[] vertex) {
+        this.vertex = vertex;
+        list = new linkedList4A[vertex.length];
+        for (int i = 0; i < vertex.length; i++) {
+            list[i] = new linkedList4A();
+        }
+    }
+
+    public void addEdge(int source, int destination) {
+        list[source].addFirst(destination);
+        list[destination].addFirst(source);
+    }
+
+    public void degree(int source) throws Exception {
+        System.out.println("degree vertex " + vertex[source] + " : " + list[source].size());
+
+        int totalIn = 0, totalOut = 0;
+        for (int i = 0; i < vertex.length; i++) {
+            for (int j = 0; j < list[i].size(); j++) {
+                if (list[i].get(j) == source) {
+                    totalIn++;
+                }
+            }
+        }
+        totalOut = list[source].size();
+        System.out.println("Indegree dari vertex " + vertex[source] + " : " + totalIn);
+        System.out.println("Outdegree dari vertex " + vertex[source] + " : " + totalOut);
+        System.out.println("Degree vertex " + vertex[source] + " : " + (totalIn + totalOut));
+    }
+
+    public void removeEdge(int source, int destination) throws Exception {
+        list[source].remove(destination);
+        list[destination].remove(source);
+    }
+
+    public void removeAllEdges() {
+        for (int i = 0; i < vertex.length; i++) {
+            list[i].clear();
+        }
+        System.out.println("graph4A berhasil dikosongkan");
+    }
+
+    public void printgraph4A() throws Exception {
+        for (int i = 0; i < vertex.length; i++) {
+            if (list[i].size() > 0) {
+                System.out.print("Vertex " + vertex[i] + " terhubung dengan : ");
+                for (int j = 0; j < list[i].size(); j++) {
+                    System.out.print(vertex[list[i].get(j)] + " ");
+                }
+                System.out.println("");
+            }
+        }
+        System.out.println(" ");
+    }
+
+    boolean graph4AType(int source, int destination) {
+        list[source].addFirst(destination);
+        return true;
+    }
 }
 ```
-<img src="img/tugas4.png">
-<img src="img/tugas4.1.png">
-<img src="img/tugas4.2.png">
-<img src="img/tugas4.3.png">
+<img src="img/hasil tugas 4a.png">
+<img src="img/hasil tugas 4a1.png">
+
+```java
+public class graphArray4A <T> {
+    private final T[] vertices;
+    private final int[][] twoD_array;
+
+    public graphArray4A(T[] v) {
+        vertices = v;
+        twoD_array = new int[vertices.length + 1][vertices.length +1];
+    }
+
+    public void makeEdge(int to, int from, int edge) {
+        try {
+            twoD_array[to][from] = edge;
+        }
+        catch (ArrayIndexOutOfBoundsException index) {
+            System.out.println("Vertex tidak ada");
+        }
+    }
+
+    public int getEdge(int to, int from) {
+        try{
+            return twoD_array[to][from];
+        }
+        catch (ArrayIndexOutOfBoundsException index)
+        {
+            System.out.println("Vertex tidak ada");
+        }
+        return -1;
+    }
+}
+import java.util.Scanner;
+public class graphArrayMain4A {
+    public static void main(String[] args) {
+        int v, e, count = 1, to = 0, from = 0;
+        Scanner sc = new Scanner(System.in);
+        
+        graphArray4A <String> graph;
+        
+        try {
+            System.out.print("Masukkan Jumlah Vertices\t: ");
+            v = sc.nextInt();
+            System.out.print("Masukkan Jumlah Edges\t\t: ");
+            e = sc.nextInt();
+            
+            String[] vertexs = new String[v + 1]; 
+            sc.nextLine();
+            for (int i = 1; i <= v; i++) {
+                System.out.print("Masukkan data vertex ke-" + i + " : ");
+                vertexs[i] = sc.nextLine();
+            }
+            graph = new graphArray4A<String>(vertexs);
+            
+            System.out.println("Masukkan Edge: <to> <from>");
+            while (count <= e) {
+                to = sc.nextInt();
+                from = sc.nextInt();
+                graph.makeEdge(to, from, 1);
+                count++;
+            }
+            System.out.println("Array 2D sebagai representasi graph sbb: ");
+            System.out.print("\t");
+            for (int i = 1; i <= v; i++) {
+                System.out.print(vertexs[i] + "\t");
+            }
+            System.out.println();
+            
+            for (int i = 1; i <= v; i++) {
+                System.out.print(vertexs[i] + "\t");
+                for (int j = 1; j <= v; j++) {
+                    System.out.print(graph.getEdge(i, j) + "\t");
+                }
+                System.out.println();
+            }
+        } catch (Exception E) {
+            System.out.println("Error, Silahkan cek kembali\n" + E.getMessage());
+        }
+        sc.close(); 
+    }
+}
+```
+<img src="img/hasil tugas 4b.png">
+<img src="img/hasil tugas 4b1.png">

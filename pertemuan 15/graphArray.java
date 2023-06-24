@@ -1,8 +1,8 @@
-public class graphArray {
+public class GraphArray {
       private final int vertices;
-        private final int [][] twoD_array;
+      private final int [][] twoD_array;
         
-    public graphArray(int v){
+    public GraphArray(int v){
        vertices = v;
        twoD_array = new int [vertices + 1][vertices + 1];
     }
