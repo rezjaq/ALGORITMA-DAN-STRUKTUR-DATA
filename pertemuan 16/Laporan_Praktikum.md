@@ -570,25 +570,25 @@ public class MainFilm {
                 }
                 break;
                 case 2 :{
-                    System.out.println("=====================================");
-                    System.out.println("       Hapus Data Film Teratas       ");
-                    System.out.println("=====================================");
+                    System.out.println("=======================");
+                    System.out.println("Hapus Data Film Teratas");
+                    System.out.println("=======================");
                     System.out.println(films.pop());
                     System.out.println("");
                 }
                 break;
                 case 3:{
-                    System.out.println("=====================================");
-                    System.out.println("           Judul Film Teratas        ");
-                    System.out.println("=====================================");
+                    System.out.println("==================");
+                    System.out.println("Judul Film Teratas");
+                    System.out.println("==================");
                     System.out.println(films.peek());
                     System.out.println("");
                 }
                 break;
                 case 4:{
-                    System.out.println("=====================================");
-                    System.out.println("        Info Semua Judul FIlm        ");
-                    System.out.println("=====================================");
+                    System.out.println("=====================");
+                    System.out.println("Info Semua Judul FIlm");
+                    System.out.println("=====================");
                     for(int i=0; i<films.size(); i++){
                         System.out.println(films.get(i));
                     }
@@ -597,16 +597,21 @@ public class MainFilm {
                 break;
                 case 5: {
                     System.out.println("");
-                    System.out.println("            Terima Kasih             ");
+                    System.out.println("Terima Kasih");
                 }
                 break;
             }
         }while (menu < 5 && menu > 0);
     }
 }
+
 ```
 
-<img src="img/tugas 1.png">
+<img src="img/tugas 1.1.png">
+<img src="img/tugas 1.2.png">
+<img src="img/tugas 1.3.png">
+<img src="img/tugas 1.4.png">
+<img src="img/tugas 1.5.png">
 
 2. Buatlah implementasi program daftar nilai mahasiswa semester, minimal memiliki 3 class yaitu Mahasiswa, Nilai, dan Mata Kuliah. Khusus untuk data Mahasiswa dan Mata Kuliah harus sudah diinisialisasi, sehingga ketika memasukkan data nilai data mahasiswa dan mata kuliah cukup menginputkan nim ataupun kode mata kuliah. Yang paling penting adalah antara objek mahasiswa, matakuliah, dan nilai harus saling terhubung.
 
@@ -645,14 +650,15 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+
 public class MainMhs {
-    String kodeNil;
+    String kodeNilai;
     double nilai;
     Mhs mhs;
     MataKuliah mk;
     
-    public MainMhs(String kodeNil, double nilai, Mhs mhs, MataKuliah mk){
-        this.kodeNil = kodeNil;
+    public MainMhs(String kodeNilai, double nilai, Mhs mhs, MataKuliah mk){
+        this.kodeNilai = kodeNilai;
         this.nilai = nilai;
         this.mhs = mhs;
         this.mk = mk;
@@ -723,9 +729,8 @@ public class MainMhs {
     };
     
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        Scanner sd = new Scanner(System.in);
-        Scanner sb = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
+        Scanner input1 = new Scanner(System.in);
         
         List<MainMhs> nill = new ArrayList<>();
         MainMhs n = new MainMhs("", 0, null, null);
@@ -762,35 +767,35 @@ public class MainMhs {
             System.out.println(" 5. Keluar");
             System.out.println("==================================================");
             System.out.print("Pilih\t\t\t\t: ");
-            menu = sd.nextInt();
+            menu = input1.nextInt();
             System.out.println("");
             
             switch(menu){
                 case 1 :
                     System.out.print("Kode\t\t\t\t: ");
-                    String kd = sc.nextLine();
+                    String kd = input.nextLine();
                     System.out.print("Nilai\t\t\t\t: ");
-                    double nilMhs = sb.nextDouble();
+                    double nilMhs = input1.nextDouble();
                     System.out.println("");
                     
-                    System.out.println("                    Daftar Mahasiswa               ");
-                    System.out.println("====================================================");
+                    System.out.println("Daftar Mahasiswa");
+                    System.out.println("================");
                     System.out.println("NIM\tNama\t\tNo Telp");
                     n.tampilMhs();
-                    System.out.println("---------------------------------------------------");
+                    System.out.println("----------------");
                     System.out.print("Pilih Mahasiswa by nim\t\t: ");
-                    nimMhs = sc.nextLine();
+                    nimMhs = input.nextLine();
                     Mhs mahaSiswas;
                     mahaSiswas = n.cariMhs(nimMhs);
                     
                     System.out.println("");
-                    System.out.println("                    Daftar Mata Kuliah              ");
-                    System.out.println("====================================================");
+                    System.out.println("Daftar Mata Kuliah");
+                    System.out.println("==================");
                     System.out.println("Kode\tMata Kuliah\t\t\t\tSKS");
                     n.tampilMatkul();
-                    System.out.println("---------------------------------------------------");
+                    System.out.println("-------------------");
                     System.out.print("Pilih Mata Kuliah by Kode\t:");
-                    mkMhs = sc.nextLine();
+                    mkMhs = input.nextLine();
                     MataKuliah mataKuliahs;
                     mataKuliahs = n.cariMatkul(mkMhs);
                     
@@ -801,8 +806,8 @@ public class MainMhs {
                     break;
                     
                 case 2:
-                    System.out.println("                  Daftar Nilai Mahasiswa           ");
-                    System.out.println("====================================================");
+                    System.out.println("Daftar Nilai Mahasiswa");
+                    System.out.println("======================");
                     System.out.println("NIM\tNama\tMata Kuliah\t\tSKS\tNilai");
                     for(int i=0; i<nill.size(); i++){
                         n.linearSearchMhs(nill.get(i).mhs.nim);
@@ -813,8 +818,8 @@ public class MainMhs {
                     break;
                     
                 case 3:
-                    System.out.println("                  Daftar Nilai Mahasiswa           ");
-                    System.out.println("====================================================");
+                    System.out.println("Daftar Nilai Mahasiswa");
+                    System.out.println("======================");
                     System.out.println("NIM\tNama\tMata Kuliah\t\tSKS\tNilai");
                     int sks = 0;
                     for(int i=0; i<nill.size(); i++){
@@ -822,26 +827,26 @@ public class MainMhs {
                         n.linearSearchMatkul(nill.get(i).mk.kodeMk);
                         System.out.println(n.toString(n.linearSearchMhs(nill.get(i).mhs.nim), n.linearSearchMatkul(nill.get(i).mk.kodeMk))+ nill.get(i).nilai);
                     }
-                    System.out.println("---------------------------------------------------");
+                    System.out.println("----------------------");
                     System.out.print("Masukkan Data Mahasiswa NIM\t\t: ");
-                    String input = sc.nextLine();
+                    String Input = input.nextLine();
                     System.out.println("");
                     for (int i = 0; i < nill.size(); i++){
-                        if(input.equalsIgnoreCase(nill.get(i).mhs.nim)){
+                        if(Input.equalsIgnoreCase(nill.get(i).mhs.nim)){
                             sks += n.matkulA.get(i).sks;
                             n.linearSearchMhs(nill.get(i).mhs.nim);
                             n.linearSearchMatkul(nill.get(i).mk.kodeMk);
                             System.out.println(n.toString(n.linearSearchMhs(nill.get(i).mhs.nim), n.linearSearchMatkul(nill.get(i).mk.kodeMk)) + nill.get(i).nilai);    
                         }
                     }
-                    System.out.println("---------------------------------------------------");
+                    System.out.println("---------------------------------");
                     System.out.println("Total SKS " + sks + " Telah Diambil");
                     System.out.println("");
                     break;
                     
                 case 4:
-                    System.out.println("                  Daftar Mahasiswa                 ");
-                    System.out.println("====================================================");
+                    System.out.println("Daftar Mahasiswa");
+                    System.out.println("================");
                     System.out.println("NIM\tNama\tMata Kuliah\t\tSKS\tNilai");
                     nill.sort(CompNilai);
                     for (int i = 0; i < nill.size(); i++){
@@ -853,13 +858,19 @@ public class MainMhs {
                     break;
                     
                 case 5:
-                    System.out.println("+==================================================+");
-                    System.out.println("+                    Terima Kasih                  +");
-                    System.out.println("+==================================================+");
+                    System.out.println("+=============+");
+                    System.out.println("+Terima Kasih +");
+                    System.out.println("+=============+");
                     break;
             }
         } while (menu < 5 && menu > 0);
     }
 }
+
 ```
-<img src="img/percobaan 3.png">
+<img src="img/tugas 2.1.png">
+<img src="img/tugas 2.2.png">
+<img src="img/tugas 2.3.png">
+<img src="img/tugas 2.4.png">
+<img src="img/tugas 2.5.png">
+<img src="img/tugas 2.6.png">

@@ -51,7 +51,7 @@ public class listMahasiswa {
     
     public static void main(String[] args) {
         listMahasiswa lm = new listMahasiswa();
-        System.out.println("---------------------------Data Awal------------------------------");
+        System.out.println("Data Awal");
         mahasiswa m = new mahasiswa("201234", "Noureen", "021xx1");
         mahasiswa m1 = new mahasiswa("201235", "Akhleema", "021xx2");
         mahasiswa m2 = new mahasiswa("201236", "Shannum", "021xx3");
@@ -61,21 +61,21 @@ public class listMahasiswa {
         lm.tampil();
         //update mahasiswa
         
-        System.out.println("\n----------------Menggunakan Linear Search-----------------------");
+        System.out.println("\nMenggunakan Linear Search");
         lm.update(lm.linearSearch("201235"), new mahasiswa("201235", "Akhleema Lela", "021xx2"));
         lm.tampil();
         
-        System.out.println("\n----------------Menggunakan Binary Search-----------------------");
+        System.out.println("\nMenggunakan Binary Search");
         lm.update(lm.binarySearch("201235"), new mahasiswa("201235", "Akhleema Lela", "021xx2"));
         lm.tampil();
         
         //asc
-        System.out.println("\n----------Data Diurut Secara Ascending Collections--------------");
+        System.out.println("\nData Diurut Secara Ascending Collections");
         lm.ascSort();
         lm.tampil();
         
         //dsc
-        System.out.println("\n----------Data Diurut secara Descending Collections------------");
+        System.out.println("\nData Diurut secara Descending Collections");
         lm.dscSort();
         lm.tampil();
     } 

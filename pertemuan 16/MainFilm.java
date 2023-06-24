@@ -3,9 +3,8 @@ import java.util.Stack;
 import java.util.Comparator;
 public class MainFilm {
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        Scanner si = new Scanner(System.in);
-        Scanner sn = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
+        Scanner input1 = new Scanner(System.in);
         
         Stack <film> films = new Stack();
         
@@ -22,23 +21,23 @@ public class MainFilm {
             System.out.println("5. Keluar                             ");
             System.out.println("======================================");
             System.out.print("Pilih menu\t: ");
-            menu = si.nextInt();
+            menu = input1.nextInt();
             switch(menu){
                 case 1:{
                     do{ 
                     System.out.println("=====================================");
                     System.out.print(" Id Film\t: ");
-                    String id = sc.nextLine();
+                    String id = input.nextLine();
                     System.out.print(" Judul Film\t: ");
-                    String judul = sc.nextLine();
+                    String judul = input.nextLine();
                     System.out.print(" Tahun Tayang\t: ");
-                    String tahun = sc.nextLine();
+                    String tahun = input.nextLine();
                     System.out.print(" Director\t: ");
-                    String director = sc.nextLine();
+                    String director = input.nextLine();
                     film data = new film(id, judul, tahun, director);
                     films.push(data);
                     System.out.println("Apakah ingin menambahkan data baru ? Y/n");
-                    pilih = sn.next().charAt(0);
+                    pilih = input1.next().charAt(0);
                     System.out.println("");
                     
                     }while (pilih == 'y' || pilih == 'Y');
@@ -46,25 +45,25 @@ public class MainFilm {
                 }
                 break;
                 case 2 :{
-                    System.out.println("=====================================");
-                    System.out.println("       Hapus Data Film Teratas       ");
-                    System.out.println("=====================================");
+                    System.out.println("=======================");
+                    System.out.println("Hapus Data Film Teratas");
+                    System.out.println("=======================");
                     System.out.println(films.pop());
                     System.out.println("");
                 }
                 break;
                 case 3:{
-                    System.out.println("=====================================");
-                    System.out.println("           Judul Film Teratas        ");
-                    System.out.println("=====================================");
+                    System.out.println("==================");
+                    System.out.println("Judul Film Teratas");
+                    System.out.println("==================");
                     System.out.println(films.peek());
                     System.out.println("");
                 }
                 break;
                 case 4:{
-                    System.out.println("=====================================");
-                    System.out.println("        Info Semua Judul FIlm        ");
-                    System.out.println("=====================================");
+                    System.out.println("=====================");
+                    System.out.println("Info Semua Judul FIlm");
+                    System.out.println("=====================");
                     for(int i=0; i<films.size(); i++){
                         System.out.println(films.get(i));
                     }
@@ -73,7 +72,7 @@ public class MainFilm {
                 break;
                 case 5: {
                     System.out.println("");
-                    System.out.println("            Terima Kasih             ");
+                    System.out.println("Terima Kasih");
                 }
                 break;
             }
